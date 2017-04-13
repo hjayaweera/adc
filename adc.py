@@ -2,11 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import floor
 class Adc(object):
+    """This class simulates function of the ADC
+
+    """
     no_of_bits=4
     lower_ref_voltage=0
     upper_ref_voltage=5
     sampling_rate=10
-    saturate=np.array([0]);
     def __init__(self,no_of_bits=4):
         self.no_of_bits=no_of_bits
     def get_config(self):
@@ -18,10 +20,10 @@ class Adc(object):
         return adc_val
 
 class Visualize_adc(object):
-    a=Adc()   
-    def __init__(self,a=Adc()):
-        self.a=a
-    def plot(self,ang,dig,a=a):
+    adc=Adc()   
+    def __init__(self,adc=Adc()):
+        self.adc=adc
+    def plot(self,ang,dig,adc=adc):
         t=range(0,len(ang))
         fig, ax1 = plt.subplots()
         ax1.set_ylabel('Voltage',color='b')
@@ -34,20 +36,26 @@ class Visualize_adc(object):
         ax2.set_ylabel('ADC value',color='r')
         ax2.tick_params('y',colors='r')
         ax2.grid(True, zorder=5)
+        plt.title("ADC parameters: V_l={} V_u={} No of bits={}".format(self.adc.lower_ref_voltage,self.adc.upper_ref_voltage,self.adc.no_of_bits));
         plt.show()
         
-class Signal(object):
-    input=0;
-    output=0;
-    def __init__(self):
-        print("signal")
+class System(object):
+    """This class create signals and do the AD conversion using ADC class
+    """
+    analog_signal=0;
+    digital_signal=0;
+    analog_sampling_rate=500
+    adc=Adc()
+    def __init__(self,analog_sampling_rate=analog_sampling_rate,adc=adc):
+        self.analog_sampling_rate=analog_sampling_rate
+        self.adc=adc
     def get_signal():
         return np.arange(0,5,.1)
 
-a=Adc(4)
-analog_sampling_rate=500
+a=Adc(10)
+s=System(500,a)
 
-x = np.linspace(0, 1, analog_sampling_rate)
+x = np.linspace(0, 1, s.analog_sampling_rate)
 x = np.abs(np.sin(4*np.pi*x)*np.exp(-5*x))*8
 y = a.get_adc_val(x);
 
