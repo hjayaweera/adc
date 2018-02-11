@@ -19,5 +19,6 @@ Following parameters can be changed
  - Lowe reference voltage
 
 ## Figures
-
+![2 bit moder](2bit.png?raw=true "2-bit mode")
 ![4 bit moder](4bit.png?raw=true "4-bit mode")
+![8 bit moder](8bit.png?raw=true "8-bit mode")
